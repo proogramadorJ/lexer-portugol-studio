@@ -3,6 +3,13 @@ package com.pedrodev
 enum class TokenType {
 
     TK_PROGRAMA, //programa
+    TK_FUNCAO, // funcao
+    TK_SE, // se
+    TK_SENAO, // senao
+    TK_IDENTIFICADOR, // nome de variavel ou função
+    TK_ESCOLHA, // escolha
+    TK_CASO, // caso
+    TK_CASO_CONTRARIO, //
 
     TK_INTEIRO, // inteiro
     TK_REAL, // real
@@ -43,6 +50,7 @@ enum class TokenType {
     TK_FECHA_PARENTESE, // )
     TK_ABRE_COLCHETE, // [
     TK_FECHA_COLCHETE, // ]
+    TK_DOIS_PONTOS, // :
 
     EOF
 }
