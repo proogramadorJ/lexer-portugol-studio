@@ -13,7 +13,6 @@ enum class TokenType {
     TK_ENQUANTO, // enquanto
     // TODO incluir do-while/ faca{ }enquanto(condicao)
     TK_PARA, // para
-    // TODO incluir algo como break/continue
 
     TK_INTEIRO, // inteiro
     TK_REAL, // real
