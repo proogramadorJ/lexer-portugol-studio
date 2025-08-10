@@ -9,7 +9,11 @@ enum class TokenType {
     TK_IDENTIFICADOR, // nome de variavel ou função
     TK_ESCOLHA, // escolha
     TK_CASO, // caso
-    TK_CASO_CONTRARIO, //
+    TK_CASO_CONTRARIO, // caso contrario
+    TK_ENQUANTO, // enquanto
+    // TODO incluir do-while/ faca{ }enquanto(condicao)
+    TK_PARA, // para
+    // TODO incluir algo como break/continue
 
     TK_INTEIRO, // inteiro
     TK_REAL, // real

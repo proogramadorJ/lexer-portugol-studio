@@ -2,9 +2,20 @@ package com.pedrodev
 
 class Scanner {
 
-    fun getTokens(source : String): Array<Token> ?{
+    var tokens: Array<Token> = emptyArray()
+    var pos: Int = 0
+    var sourceCode: String
 
-        return null
+    constructor(source: String) {
+        sourceCode = source
+    }
+
+    fun scanTokens(): Array<Token> {
+        val currentChar = sourceCode[pos]
+
+        
+
+        return tokens
     }
 
 
