@@ -1,6 +1,6 @@
 package com.pedrodev
 
-class ReservedWords {
+object ReservedWords {
     val reservedWords = mutableMapOf<String, TokenType>(
         "programa" to TokenType.TK_PROGRAMA,
         "funcao" to TokenType.TK_FUNCAO,

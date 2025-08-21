@@ -158,6 +158,23 @@ class Scanner {
                     currentColumn++
                 }
 
+                '"' -> {
+                    val begin = pos
+                    while (peek() != '"' && peek() != '\u0000') {
+                        if (peek() == '\n') {
+                            currentLine++
+                        }
+                        pos++
+                    }
+                    if (peek() == '\u0000') {
+                        throw RuntimeException("string não finalizada corretamente na linha $currentLine")
+                    }
+
+                    pos++
+                    val stringLiteral = sourceCode.substring(begin + 1, pos - 1)
+                    tokens.add(Token(TokenType.TK_STRING_LITERAL, currentLine, currentColumn, stringLiteral))
+                }
+
                 '\n' -> {
                     pos++
                     currentLine++
@@ -165,7 +182,30 @@ class Scanner {
                 }
 
                 else -> {
-                    throw RuntimeException("Simbolo não identificado na linha $currentLine coluna $currentColumn")
+                    if (isDigit(currentChar)) {
+                        val begin = pos
+                        while (isDigit(peek())) pos++
+
+                        if (sourceCode[pos] == '.' && isDigit(next())) {
+                            pos++
+                            while (isDigit(peek())) pos++
+                        }
+                        val literalNumber = sourceCode.substring(begin, pos)
+                        tokens.add(Token(TokenType.TK_NUMERO_LITERAL, currentLine, currentColumn, literalNumber))
+
+                    } else if (isAlpha(currentChar)) {
+                        val begin = pos
+                        while (isAlphaNumeric(peek())) pos++
+
+                        val literalValue = sourceCode.substring(begin, pos)
+                        val reservedWord = ReservedWords.reservedWords[literalValue.lowercase()]
+                        val type = reservedWord ?: TokenType.TK_IDENTIFICADOR
+                        tokens.add(Token(type, currentLine, currentColumn, literalValue))
+
+                    } else {
+                        //TODO No futuro apenas exibir mensagem de erro e interromper scan
+                        throw RuntimeException("Simbolo $currentChar não identificado na linha $currentLine coluna $currentColumn")
+                    }
                 }
             }
 
@@ -173,6 +213,13 @@ class Scanner {
 
         tokens.add(Token(TokenType.EOF, -1, -1, ""))
         return tokens
+    }
+
+    fun peek(): Char {
+        if (pos >= sourceCode.length) {
+            return '\u0000'
+        }
+        return sourceCode[pos]
     }
 
     fun next(): Char {

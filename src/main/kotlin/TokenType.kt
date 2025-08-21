@@ -14,6 +14,9 @@ enum class TokenType {
     // TODO incluir do-while/ faca{ }enquanto(condicao)
     TK_PARA, // para
 
+    TK_NUMERO_LITERAL,
+    TK_STRING_LITERAL,
+
     TK_INTEIRO, // inteiro
     TK_REAL, // real
     TK_CARACTER, // caracter
