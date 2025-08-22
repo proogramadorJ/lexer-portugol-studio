@@ -21,6 +21,7 @@ object ReservedWords {
         "e" to TokenType.TK_E,
         "ou" to TokenType.TK_OU,
         "nao" to TokenType.TK_NAO,
+        "const" to TokenType.TK_CONST
     )
 
 }

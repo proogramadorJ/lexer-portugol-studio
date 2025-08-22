@@ -13,6 +13,7 @@ enum class TokenType {
     TK_ENQUANTO, // enquanto
     // TODO incluir do-while/ faca{ }enquanto(condicao)
     TK_PARA, // para
+    TK_CONST, // const
 
     TK_NUMERO_LITERAL,
     TK_STRING_LITERAL,
