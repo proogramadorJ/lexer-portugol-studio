@@ -1,22 +1,16 @@
 package com.pedrodev
 
-class Scanner {
+class Scanner(source: String) {
 
-    val tokens = mutableListOf<Token>()
-    var pos: Int = 0
-    var sourceCode: String
-    var currentLine = 1
-    var currentColumn = 0
-
-    constructor(source: String) {
-        sourceCode = source
-    }
+    private val tokens = mutableListOf<Token>()
+    private var pos: Int = 0
+    private var sourceCode: String = source
+    private var currentLine = 1
+    private var currentColumn = 0
 
     fun scanTokens(): List<Token> {
         while (pos < sourceCode.length) {
-            val currentChar = sourceCode[pos]
-
-            when (currentChar) {
+            when (val currentChar = sourceCode[pos]) {
                 ',' -> {
                     pos++
                     tokens.add(Token(TokenType.TK_VIRGULA, currentLine, currentColumn, ","))
@@ -160,6 +154,7 @@ class Scanner {
 
                 '"' -> {
                     val begin = pos
+                    pos++
                     while (peek() != '"' && peek() != '\u0000') {
                         if (peek() == '\n') {
                             currentLine++
@@ -174,6 +169,10 @@ class Scanner {
                     val stringLiteral = sourceCode.substring(begin + 1, pos - 1)
                     tokens.add(Token(TokenType.TK_STRING_LITERAL, currentLine, currentColumn, stringLiteral))
                 }
+
+
+                '\r' -> {pos++}
+                '\t' -> {pos++}
 
                 '\n' -> {
                     pos++
@@ -204,7 +203,7 @@ class Scanner {
 
                     } else {
                         //TODO No futuro apenas exibir mensagem de erro e interromper scan
-                        throw RuntimeException("Simbolo $currentChar não identificado na linha $currentLine coluna $currentColumn")
+                        throw RuntimeException("Simbolo [$currentChar] não identificado na linha $currentLine coluna $currentColumn")
                     }
                 }
             }
@@ -215,21 +214,21 @@ class Scanner {
         return tokens
     }
 
-    fun peek(): Char {
+    private fun peek(): Char {
         if (pos >= sourceCode.length) {
             return '\u0000'
         }
         return sourceCode[pos]
     }
 
-    fun next(): Char {
+    private fun next(): Char {
         if (pos + 1 >= sourceCode.length) {
             return '\u0000'
         }
         return sourceCode[pos + 1]
     }
 
-    fun match(c: Char, type1: TokenType, type2: TokenType, lexeme: Char) {
+    private fun match(c: Char, type1: TokenType, type2: TokenType, lexeme: Char) {
         if (next() == c) {
             tokens.add(Token(type1, currentLine, currentColumn, "" + lexeme + c))
             currentColumn += 2
@@ -241,7 +240,7 @@ class Scanner {
         currentColumn
     }
 
-    fun isDigit(c: Char): Boolean {
+    private fun isDigit(c: Char): Boolean {
         return c in '0'..'9'
     }
 

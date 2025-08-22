@@ -1,3 +1,3 @@
 package com.pedrodev
 
-class Token(type: TokenType, line: Int, column: Int, lexeme: String)
+class Token(var type: TokenType, var line: Int, var column: Int, var lexeme: String)

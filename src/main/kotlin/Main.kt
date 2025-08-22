@@ -1,10 +1,19 @@
 package com.pedrodev
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-fun main() {
-    val code = "olá mundo"
+import java.io.File
 
-    val scanner = Scanner()
-    scanner.getTokens(code)
+fun main() {
+
+    val codeFile = File("C:\\Desenvolvimento\\Projetos\\lexer-portugol-studio\\src\\test\\math.portugol")
+    val codeText = codeFile.readText(Charsets.UTF_8)
+    val scanner = Scanner(codeText)
+
+    val tokens = scanner.scanTokens()
+
+    for(token in tokens){
+        println("Token ${token.type} lexema ${token.lexeme}")
+        println("linha ${token.line} coluna ${token.column}\n")
+
+    }
+
 }
